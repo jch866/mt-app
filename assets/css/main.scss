@@ -1,0 +1,65 @@
+.wrap {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+@mixin block {
+    display: flex;
+}
+
+.header-section {
+    padding: 0 5px;
+    .header-top {
+        background: #f3f3f3;
+        height: 40px;
+        line-height: 40px;
+    }
+    .header-nav {
+        ul {
+            display: flex;
+            justify-content: flex-end;
+            li {
+                padding: 0 5px;
+            }
+        }
+    }
+}
+
+.search-bar {
+    .logo {
+        display: flex;
+        justify-content: center;
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+    .main-search-input {
+        display: flex;
+        padding: 10px;
+        position: relative;
+    }
+    .focus-list {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+    }
+    .result-list {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+    }
+    .suggest-list {
+        dd {
+            padding: 8px;
+        }
+        @include block
+    }
+    .right-menu {
+        dd {
+            padding: 10px;
+        }
+        @include block;
+        justify-content: flex-end;
+    }
+}

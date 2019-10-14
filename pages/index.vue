@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div>
-      <h1 class="title">mt-app</h1>
-      <h2 class="subtitle">My splendiferous Nuxt.js project</h2>
+      <h1 class="title">eptingche</h1>
+      <h2 class="subtitle">eptingche</h2>
     </div>
   </div>
 </template>
