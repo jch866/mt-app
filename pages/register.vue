@@ -23,6 +23,9 @@
       </el-form-item>
       <div class="codetip">{{error}}</div>
     </el-form>
+     <el-dialog title='提示'  :visible.sync="showdialog">
+        <nuxt-link to='/login'>注册成功,前往登录</nuxt-link>
+     </el-dialog>
   </div>
 </template>
 
@@ -41,10 +44,11 @@ export default {
       }
     };
     return {
+      showdialog:false,
       statusMsg: "",
       error: "",
       ruleForm: {
-        name: "abc",
+        name: "xyz",
         code: "",
         email: "274458208@qq.com",
         pwd: "",
@@ -53,7 +57,7 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 3, max: 9, message: "长度在 3 到 9 个字符", trigger: "blur" }
         ],
         email: [{ type: "email", message: "请输入email", trigger: "blur" }],
         code: [{ message: "请输入验证码", trigger: "blur" }],
@@ -107,7 +111,7 @@ export default {
       this.$refs["ruleForm"].validate(function(valid, object) {
         if (valid) {
           self.$axios
-            .post("/user/signup", {
+            .post("/user/register", {
               username: encodeURIComponent(username),
               password: CryptoJS.MD5(password).toString(),
               email,
@@ -115,8 +119,7 @@ export default {
             }).then(({ status, data }) => {
               if(status===200){
                 if(data && data.code==0){
-                  console.log(data)
-                  location.href = '/login';
+                  self.showdialog = true;
                 }else{
                   self.error = `服务器出错,错误码:${status}`
                 }

@@ -9,14 +9,19 @@
       <el-form-item label="用户名" prop="name" required>
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
-
       <el-form-item label="密码" prop="pwd" required>
         <el-input type="password" v-model="ruleForm.pwd"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="loginHandle">登录</el-button>
       </el-form-item>
+      <el-form-item>
+        <div>{{statusmsg}}</div>
+      </el-form-item>
     </el-form>
+    <el-dialog title='提示'  :visible.sync="showdialog">
+        <nuxt-link to='/'>注册成功,前往首页</nuxt-link>
+     </el-dialog>
   </div>
 </template>
 
@@ -30,6 +35,8 @@ export default {
       ruleForm:{
         name:'', pwd:'' 
       },
+      showdialog:false,
+      statusmsg:'',
       rules: {
           name: [
             { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -53,11 +60,17 @@ export default {
     postData(){
       let self = this;
       let {name:username,pwd:password} = this.ruleForm;
-      self.$axios.post('/user/signin',{
+      self.$axios.post('/user/login',{
         username:window.decodeURIComponent(username),
         password:CryptoJS.MD5(password).toString()
-      }).then(({status,code})=>{
-
+      }).then(({status,data})=>{
+        if(status===200){
+          if(data&& data.code ==0){
+            self.showdialog = true;
+          }
+        }else{
+          this.statusmsg = data.msg
+        }
       })
     }
   }

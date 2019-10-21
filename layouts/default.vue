@@ -1,6 +1,6 @@
 <template>
   <el-container class="wrap">
-    <el-header class="header-section">
+    <el-header class="header-section" height=100%>
         <mt-header></mt-header>
         <mt-menu></mt-menu>
     </el-header>

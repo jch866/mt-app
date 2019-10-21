@@ -1,5 +1,5 @@
 export default {
-    dbs: 'mongodb://127.0.0.1:27017/user',
+    dbs: 'mongodb://127.0.0.1:27017/mt-app',
     redis: {
         get host() {
             return '127.0.0.1'

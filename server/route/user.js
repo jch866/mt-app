@@ -10,7 +10,7 @@ const router = new Router({
     prefix: '/user'
 })
 const Store = new Redis().client; //redis的客户端；
-router.post('/signup', async function(ctx) {
+router.post('/register', async function(ctx) {
     let { username, password, code, email } = ctx.request.body;
     if (code) { //验证 验证码
         const saveCode = await Store.hget(`nodemailer:${username}`, 'code');
@@ -51,7 +51,7 @@ router.post('/signup', async function(ctx) {
     let nuser = await UserModel.create({ username, password, email });
     if (nuser) {
         //写库成功，自动登录
-        let res = await axios.post('/user/signin', { username, password });
+        let res = await axios.post('/user/login', { username, password });
         if (res.data && res.data.code === 0) {
             ctx.body = {
                 code: 0,
@@ -72,7 +72,7 @@ router.post('/signup', async function(ctx) {
     }
 
 })
-router.post('/signin', async function(ctx, next) {
+router.post('/login', async function(ctx, next) {
     return passport.authenticate('local', function(err, user, info, status) {
         if (err) {
             ctx.body = {
@@ -165,11 +165,13 @@ router.get('/getUser', async function(ctx) {
     if (ctx.isAuthenticated()) {
         const { username, email } = ctx.session.passport.user;
         ctx.body = {
+            code: 0,
             user: username,
             email
         }
     } else {
         ctx.body = {
+            code: -1,
             user: '',
             email: ''
         }
