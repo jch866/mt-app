@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  layout: "login",
+  layout: "blank",
   data() {
     return {
       statusmsg: ""
