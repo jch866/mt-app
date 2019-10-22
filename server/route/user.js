@@ -146,8 +146,8 @@ router.post('/verify', async function(ctx, next) {
         msg: 'Code send successed! Maybe will timeout,the expire is one minute!'
     }
 })
-router.get('/exit', async function(ctx) {
-    await ctx.loginout();
+router.get('/loginout', async function(ctx) {
+    await ctx.logout();
     if (!ctx.isAuthenticated()) {
         ctx.body = {
             code: 0,

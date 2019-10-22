@@ -60,6 +60,7 @@ export default {
     postData(){
       let self = this;
       let {name:username,pwd:password} = this.ruleForm;
+      this.statusmsg = '';
       self.$axios.post('/user/login',{
         username:window.decodeURIComponent(username),
         password:CryptoJS.MD5(password).toString()
