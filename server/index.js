@@ -10,6 +10,7 @@ import passport from './route/passport';
 import dbconfig from './dbs/config';
 // import city from './route/city'
 import user from './route/user'
+import geo from './route/geo'
 const app = new Koa()
 
 app.keys = ['mt', 'keyskeys'];
@@ -50,6 +51,7 @@ async function start() {
     }
     // app.use(city.routes()).use(city.allowedMethods());
     app.use(user.routes()).use(user.allowedMethods());
+    app.use(geo.routes()).use(geo.allowedMethods());
     app.use((ctx) => {
         ctx.status = 200
         ctx.respond = false // Bypass Koa's built-in response handling

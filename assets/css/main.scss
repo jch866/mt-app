@@ -3,6 +3,7 @@
     margin: 0 auto;
 }
 
+$color:darkorange;
 @mixin block {
     display: flex;
 }
@@ -105,8 +106,23 @@
             cursor: pointer;
         }
     }
+    .level2 {
+        h4 {
+            margin: 2px 5px;
+            color: $color;
+            border-bottom: 1px dotted #333;
+        }
+        span {
+            display: inline-block;
+            width: 33%;
+            &:hover {
+                background: #f1f1f1;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .codetip {
-    color: darkorange
+    color: $color
 }
